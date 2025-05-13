@@ -1,9 +1,17 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import logging  # Add this line for logging
+
+# Initialize logging
+logging.basicConfig(
+    filename='inference_logs.log',  # Log file will be created in the same folder
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 # Load the trained random forest model
-model = joblib.load('model_rf.pkl')
+model = joblib.load("E:\Depi(AI and Data science)\IBM final project\model_rf.pkl")
 
 # Function to apply one-hot encoding manually (assuming df_encoded was used during training)
 def one_hot_encode(df_encoded, column, prefix, categories):
@@ -103,6 +111,10 @@ if st.button("Predict"):
     # Make prediction with the preprocessed input
     prediction = model.predict(user_input)[0]
     
+    # Log the input and prediction
+    logging.info(f"Input: {user_input.to_dict(orient='records')[0]}, Prediction: {prediction}")
+
+    # Show the result to the user
     if prediction == 1:
         st.error("⚠️ High Risk of Heart Disease")
     else:

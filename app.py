@@ -11,7 +11,7 @@ logging.basicConfig(
 )
 
 # Load the trained random forest model
-model = joblib.load("E:\Depi(AI and Data science)\IBM final project\model_rf.pkl")
+model = joblib.load("model_rf.pkl")
 
 # Function to apply one-hot encoding manually (assuming df_encoded was used during training)
 def one_hot_encode(df_encoded, column, prefix, categories):
